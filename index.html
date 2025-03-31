@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+
+    <title>WebAR Model Switcher with Thumbnails</title>
+    <style>
+        #ar-button {
+            width: 120px;
+            height: 60px;
+            position: absolute;
+            right: 35px;
+            bottom: 35px;
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 20px;
+        }
+        .button-container {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+        .thumbnail-button {
+            margin: 0 10px;
+            padding: 10px;
+            border: none;
+            background-color: #f0f0f0; /* Light gray background */
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .thumbnail-button img {
+            width: 60px; /* Thumbnail image size */
+            height: 60px;
+            margin-bottom: 5px;
+        }
+        .thumbnail-button span {
+            font-size: 12px; /* Model name font size */
+        }
+    </style>
+</head>
+<body>
+    <model-viewer 
+        id="modelViewer"
+        src="models/thumbler.glb" 
+        style="width: 100vw; height: 90vh"
+        ar
+        shadow-intensity="1" 
+        camera-controls 
+        touch-action="pan-y">
+        <button id="ar-button" slot="ar-button">Start AR</button>
+    </model-viewer>
+
+    <div class="button-container">
+        <button class="thumbnail-button" onclick="changeModel('models/thumbler.glb')">
+            <img src="thumbnails/thumbler_thumb.png" alt="Thumbler Thumbnail">
+            <span>Thumbler</span>
+        </button>
+        <button class="thumbnail-button" onclick="changeModel('models/model2.glb')">
+            <img src="thumbnails/model2_thumb.png" alt="Model 2 Thumbnail">
+            <span>Model 2</span>
+        </button>
+        <button class="thumbnail-button" onclick="changeModel('models/model3.glb')">
+            <img src="thumbnails/model3_thumb.png" alt="Model 3 Thumbnail">
+            <span>Model 3</span>
+        </button>
+    </div>
+
+    <script>
+        function changeModel(modelUrl) {
+            const modelViewer = document.getElementById('modelViewer');
+            modelViewer.setAttribute('src', modelUrl);
+        }
+    </script>
+</body>
+</html>
